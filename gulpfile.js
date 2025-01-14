@@ -1,9 +1,6 @@
 import { src, dest, watch, series } from "gulp";
-import * as dartSass from "sass";
-import gulpSass from "gulp-sass";
+import dartSass from "gulp-dart-sass";
 import terser from "gulp-terser";
-
-const sass = gulpSass(dartSass);
 
 const paths = {
   scss: "src/scss/**/*.scss",
@@ -13,9 +10,9 @@ const paths = {
 export function css(done) {
   src(paths.scss, { sourcemaps: true })
     .pipe(
-      sass({
+      dartSass({
         outputStyle: "compressed",
-      }).on("error", sass.logError)
+      }).on("error", dartSass.logError)
     )
     .pipe(dest("./public/build/css", { sourcemaps: "." }));
   done();
